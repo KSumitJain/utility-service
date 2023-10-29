@@ -16,6 +16,7 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 @RequiredArgsConstructor
 public class UtilityServiceComponent {
     private final FeignClient feignClient;
+
     public void watchDirectory(Path directory) {
         try {
             WatchService watchService = FileSystems.getDefault().newWatchService();
@@ -35,8 +36,8 @@ public class UtilityServiceComponent {
                         String[] extensions = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".flv"};
                         log.info(newFile.getFileName());
                         if (Arrays.stream(extensions).anyMatch(s -> newFile.getFileName().toString().endsWith(s))) {
-                            System.out.println("New video file added" + newFile.toFile().getAbsolutePath());
-                            feignClient.imageProcessing(newFile.toFile().getAbsolutePath());
+                            log.info("New video file added " + directory + "\\" + newFile.getFileName());
+                            feignClient.imageProcessing(directory + "\\" + newFile.getFileName());
                         }
                     }
                 }

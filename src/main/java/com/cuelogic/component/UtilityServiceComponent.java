@@ -35,8 +35,8 @@ public class UtilityServiceComponent {
                         String[] extensions = {".mp4", ".mov", ".avi", ".mkv", ".webm", ".flv"};
                         log.info(newFile.getFileName());
                         if (Arrays.stream(extensions).anyMatch(s -> newFile.getFileName().toString().endsWith(s))) {
-                            System.out.println("New video file added " + newFile.getFileName());
-                            feignClient.imageProcessing(newFile.getFileName().toString());
+                            System.out.println("New video file added" + newFile.toFile().getAbsolutePath());
+                            feignClient.imageProcessing(newFile.toFile().getAbsolutePath());
                         }
                     }
                 }
